@@ -48,6 +48,15 @@ server {
     }
 }
 
+server {
+    listen 443 default_server;
+    server_name _;
+    proxy_intercept_errors on;
+    location / {
+        return 444;
+    }
+}
+
 {{ range $host, $containers := groupByMulti $ "Env.VIRTUAL_HOST" "," }}
 
 upstream {{ $host }} {
