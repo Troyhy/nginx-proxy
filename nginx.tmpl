@@ -39,12 +39,17 @@ server {
 	server_name _; # This is just an invalid value which will never trigger on a real hostname.
 	proxy_intercept_errors on;
 	error_page 503 @503;
+	error_page 502 @502;
     location / {
         return 503;
     }
     location @503 {
 		root /usr/local/nginx/html;
 		try_files /503.html = 503;
+    }
+    location @502 {
+        root /usr/local/nginx/html;
+        try_files /502.html = 502;
     }
 }
 
